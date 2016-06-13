@@ -1,12 +1,18 @@
 
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Google {
 	public static void main(String[] args) {
-		Document doc = new Document("document1.txt");
-		System.out.println("Found document:\n" + doc.getHeader() + "\n\n" + doc.getBody());
+		ArrayList<Document> documents = new ArrayList<Document>();
+		
+		documents.add(new Document("document1.txt"));
+		documents.add(new Document("document2.txt"));
+		documents.add(new Document("document3.txt"));
+		documents.add(new Document("document4.txt"));
+		documents.add(new Document("document5.txt"));
 		
 		Index index = new Index();
-		index.createInvertedIndexForDocument(doc);
+		index.createInvertedIndexForDocuments(documents);
 	}
 }

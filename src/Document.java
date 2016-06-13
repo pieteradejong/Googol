@@ -13,6 +13,7 @@ public class Document {
 	private String header;
 	private String body;
 	private String punctuation = ".,;:'\"[]{}-=_+<>?/";
+	private List<String> commonWords = Arrays.asList("the", "and");
 	
 	public Document() {
 	}

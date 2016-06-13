@@ -13,7 +13,7 @@ public class Index {
 	 * 
 	 * 
 	 * */
-	
+	private HashMap<String, Integer> reverseIndex;
 	private int numDocs;
 	private boolean built;
 	
@@ -22,32 +22,32 @@ public class Index {
 		this.built = false;
 	}
 	
-	public HashMap<String, Integer> createInvertedIndexForDocument(Document doc) {
-		HashMap<String, Integer> reverseIndex = new HashMap<String, Integer>(); 
+	public HashMap<String, Integer> createInvertedIndexForDocuments(ArrayList<Document> docs) {
+//		HashMap<String, Integer> reverseIndex = new HashMap<String, Integer>(); 
 		
-		ArrayList<String> words = doc.toBagOfWords();
-		System.out.println("Bag of words for document:\n" + words);
-		
-		
-		
-		for (String word : words) {
-			Integer count = reverseIndex.get(word);
-			if (count == null) {
-				reverseIndex.put(word, 1);
-			}
-			else {
-				reverseIndex.put(word, count + 1);
+		for (Document doc : docs) {
+			ArrayList<String> words = doc.toBagOfWords();
+
+			for (String word : words) {
+				Integer count = reverseIndex.get(word);
+				if (count == null) {
+					reverseIndex.put(word, 1);
+				}
+				else {
+					reverseIndex.put(word, count + 1);
+				}
 			}
 		}
-		
-		System.out.println("\nCreated reverse index:");
 		Index.printMap(reverseIndex);
-		
 		return reverseIndex;
 	}
 	
+	public List<Integer> getDocumentIDsForWord(String word) {
+		return reverseIndex.get(word);
+	}
 	
-	//temp method just meant to print reverse index 
+	
+	//temp helper method just meant to print reverse index 
 	public static void printMap(Map mp) {
 	    Iterator it = mp.entrySet().iterator();
 	    while (it.hasNext()) {
