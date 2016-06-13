@@ -1,0 +1,6 @@
+this is my test document
+
+can I read it from disk,
+and then output it to console?
+
+bla bla bla bla bla
