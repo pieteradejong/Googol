@@ -14,5 +14,6 @@ public class Google {
 		
 		Index index = new Index();
 		index.createInvertedIndexForDocuments(documents);
+		index.getDocumentIDsForWord("cry");
 	}
 }

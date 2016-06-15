@@ -2,18 +2,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Index {
-	private HashMap<String, Integer> index = new HashMap<String, Integer>();
-	/*
-	 * the index should:
-	 * - be given a series of Documents
-	 * - for each Document: 
-	 * 	--- for each word, add a reference to the index for that word
-	 * 
-	 * 
-	 * */
-	private HashMap<String, Integer> reverseIndex;
+	private HashMap<String, ArrayList<Document>> reverseIndex = new HashMap<String, ArrayList<Document>>();
 	private int numDocs;
 	private boolean built;
 	
@@ -22,19 +14,16 @@ public class Index {
 		this.built = false;
 	}
 	
-	public HashMap<String, Integer> createInvertedIndexForDocuments(ArrayList<Document> docs) {
-//		HashMap<String, Integer> reverseIndex = new HashMap<String, Integer>(); 
-		
+	public HashMap<String, ArrayList<Document>> createInvertedIndexForDocuments(ArrayList<Document> docs) {
 		for (Document doc : docs) {
 			ArrayList<String> words = doc.toBagOfWords();
-
 			for (String word : words) {
-				Integer count = reverseIndex.get(word);
-				if (count == null) {
-					reverseIndex.put(word, 1);
+				if (!reverseIndex.containsKey(word)) {
+					reverseIndex.put(word, new ArrayList<Document>(Arrays.asList(doc)));
 				}
 				else {
-					reverseIndex.put(word, count + 1);
+					ArrayList<Document> documents = reverseIndex.get(word);
+					documents.add(doc);
 				}
 			}
 		}
@@ -42,7 +31,7 @@ public class Index {
 		return reverseIndex;
 	}
 	
-	public List<Integer> getDocumentIDsForWord(String word) {
+	public ArrayList<Document> getDocumentIDsForWord(String word) {
 		return reverseIndex.get(word);
 	}
 	
